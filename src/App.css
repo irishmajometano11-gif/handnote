@@ -1,0 +1,1475 @@
+
+/* =========================================
+   HANDNOTE - MAIN DESIGN SYSTEM
+========================================= */
+
+:root {
+  font-family: Inter, system-ui, Arial, sans-serif;
+  color: #f8fafc;
+  background-color: #0f172a;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+
+  --bg-main: #0f172a;
+  --bg-panel: #1e293b;
+  --bg-card: #111c30;
+  --bg-input: #334155;
+
+  --border: #334155;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+
+  --accent: #2563eb;
+  --accent-light: #38bdf8;
+  --success: #16a34a;
+  --warning: #92400e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  min-width: 320px;
+  background: var(--bg-main);
+  color: var(--text-primary);
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+button:hover:not(:disabled) {
+  filter: brightness(1.12);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--accent-light);
+  outline-offset: 3px;
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   APP CONTAINER
+========================================= */
+
+.handnote-app {
+  width: 100%;
+  min-height: 100dvh;
+  padding: 16px 24px;
+  background: var(--bg-main);
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.app-header {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto 18px;
+  padding: 12px 18px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+.app-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.brand-icon {
+  font-size: 30px;
+  color: var(--accent-light);
+}
+
+.app-brand h1 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.app-brand p {
+  margin: 3px 0 0;
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+/* =========================================
+   MODE NAVIGATION
+========================================= */
+
+.mode-navigation {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mode-navigation button {
+  padding: 10px 17px;
+  border-radius: 9px;
+  background: var(--bg-input);
+  border: 1px solid #475569;
+  color: #e2e8f0;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.mode-navigation button.active {
+  background: var(--accent);
+  border-color: var(--accent-light);
+  color: white;
+}
+
+.audio-button {
+  padding: 10px 16px;
+  border-radius: 9px;
+  background: var(--bg-input);
+  border: 1px solid #475569;
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.audio-button.enabled {
+  background: #166534;
+  border-color: #22c55e;
+}
+
+/* =========================================
+   MAIN DASHBOARD
+========================================= */
+
+.dashboard-layout {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.2fr)
+    minmax(0, 1fr);
+
+  gap: 18px;
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.webcam-column,
+.learning-column {
+  min-width: 0;
+}
+
+/* =========================================
+   CAMERA PANEL
+========================================= */
+
+.camera-panel,
+.learning-panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px;
+}
+
+.panel-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.panel-heading h2 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 650;
+}
+
+.camera-status {
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.camera-frame {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #020617;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.camera-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform: scaleX(-1);
+}
+
+.camera-information {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  margin-top: 12px;
+  color: #cbd5e1;
+  font-size: 13px;
+}
+
+.camera-information strong {
+  color: white;
+  font-weight: 700;
+}
+
+/* =========================================
+   GESTURE FEEDBACK
+========================================= */
+
+.gesture-feedback {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px 14px;
+
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.gesture-feedback.waiting {
+  background: #334155;
+  color: #e2e8f0;
+}
+
+.gesture-feedback.correct {
+  background: #14532d;
+  color: #dcfce7;
+}
+
+.gesture-feedback.incorrect {
+  background: #78350f;
+  color: #fef3c7;
+}
+
+.feedback-target {
+  opacity: 0.85;
+  font-weight: 400;
+}
+
+/* =========================================
+   LEARN MODE PANEL
+========================================= */
+
+.learning-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.learning-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.learning-header p {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* Musical note buttons */
+
+.note-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.note-button {
+  min-width: 0;
+  padding: 13px 5px;
+
+  background: var(--bg-input);
+  border: 1px solid #475569;
+  border-radius: 9px;
+
+  color: #e2e8f0;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.note-button.selected {
+  background: var(--accent);
+  border-color: var(--accent-light);
+  color: white;
+}
+
+/* Selected note card */
+
+.selected-note-card {
+  padding: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.section-label {
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.selected-note-card h3 {
+  margin: 8px 0 0;
+  font-size: 38px;
+  line-height: 1.1;
+}
+
+.note-frequency {
+  margin: 5px 0 20px;
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+.gesture-instructions {
+  padding-top: 15px;
+  border-top: 1px solid var(--border);
+}
+
+.gesture-instructions p {
+  margin: 8px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #e2e8f0;
+}
+
+/* Sound button */
+
+.play-note-button {
+  width: 100%;
+  padding: 13px;
+
+  background: var(--success);
+  border: none;
+  border-radius: 10px;
+
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* =========================================
+   LAPTOP / DESKTOP VIEWPORT
+========================================= */
+
+@media (min-width: 1000px) and (min-height: 650px) {
+  .handnote-app {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dashboard-layout {
+    flex: 1;
+    min-height: 0;
+  }
+
+  .camera-frame {
+    aspect-ratio: auto;
+    height: clamp(280px, 57dvh, 540px);
+  }
+}
+
+/* =========================================
+   TABLET / SMALL LAPTOP
+========================================= */
+
+@media (max-width: 1000px) {
+  .handnote-app {
+    padding: 14px;
+  }
+
+  .app-header {
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .dashboard-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .camera-frame {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+/* =========================================
+   MOBILE RESPONSIVENESS
+========================================= */
+
+@media (max-width: 600px) {
+  .handnote-app {
+    padding: 10px;
+  }
+
+  .app-header {
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .app-brand h1 {
+    font-size: 19px;
+  }
+
+  .app-brand p {
+    font-size: 11px;
+  }
+
+  .mode-navigation {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .mode-navigation button {
+    flex: 1;
+    padding: 10px 6px;
+  }
+
+  .camera-panel,
+  .learning-panel {
+    padding: 12px;
+  }
+
+  .panel-heading h2 {
+    font-size: 15px;
+  }
+
+  .camera-status {
+    font-size: 11px;
+  }
+
+  .camera-information {
+    font-size: 12px;
+  }
+
+  .note-grid {
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .note-button {
+    padding: 11px 3px;
+    font-size: 12px;
+  }
+
+  .selected-note-card {
+    padding: 15px;
+  }
+
+  .selected-note-card h3 {
+    font-size: 32px;
+  }
+}
+
+/* =========================================
+   SHORT SCREENS
+========================================= */
+
+@media (max-height: 650px) and (min-width: 1001px) {
+  .handnote-app {
+    padding: 10px 16px;
+  }
+
+  .app-header {
+    margin-bottom: 10px;
+  }
+
+  .camera-frame {
+    aspect-ratio: 16 / 9;
+  }
+
+  .learning-panel {
+    gap: 12px;
+  }
+
+  .selected-note-card {
+    padding: 14px;
+  }
+}
+
+/* =====================================
+   HANDNOTE TWO-COLUMN LAYOUT FIX
+===================================== */
+
+@media (min-width: 1001px) {
+  .dashboard-layout {
+    display: grid !important;
+    grid-template-columns:
+      minmax(0, 55fr)
+      minmax(0, 45fr) !important;
+    gap: 18px;
+    align-items: start;
+  }
+
+  .webcam-column,
+  .learning-column {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .learning-column > .learning-panel {
+    width: 100%;
+  }
+
+  .camera-frame {
+    height: clamp(300px, 55dvh, 540px);
+    aspect-ratio: auto;
+  }
+}
+
+/* Stack only on smaller screens */
+
+@media (max-width: 1000px) {
+  .dashboard-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* =========================================
+   HANDNOTE - PRACTICE MODE
+========================================= */
+
+.practice-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  width: 100%;
+  padding: 18px;
+
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 16px;
+  color: #f8fafc;
+}
+
+.practice-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.practice-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.practice-header p {
+  margin: 6px 0 0;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.practice-label {
+  padding: 5px 9px;
+  border-radius: 6px;
+  background: #1e3a8a;
+  color: #bfdbfe;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* Exercise type selector */
+
+.practice-type-selector {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.practice-type-selector button {
+  padding: 11px 8px;
+  border-radius: 9px;
+  border: 1px solid #475569;
+  background: #334155;
+  color: #cbd5e1;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.practice-type-selector button.selected {
+  background: #2563eb;
+  border-color: #38bdf8;
+  color: white;
+}
+
+/* Target note card */
+
+.practice-target-card {
+  padding: 20px 15px;
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.practice-section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #94a3b8;
+}
+
+.practice-target-card h3 {
+  margin: 7px 0;
+  font-size: 48px;
+  line-height: 1.1;
+  font-weight: 750;
+  color: #38bdf8;
+}
+
+.practice-target-card p {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+/* Sequence progress */
+
+.practice-sequence {
+  padding: 12px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  background: #0f172a;
+}
+
+.practice-sequence-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+  color: #cbd5e1;
+  font-size: 12px;
+}
+
+.practice-sequence-notes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.practice-sequence-note {
+  padding: 7px 11px;
+  border-radius: 7px;
+  background: #334155;
+  color: #cbd5e1;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.practice-sequence-note.current {
+  background: #2563eb;
+  color: white;
+}
+
+.practice-sequence-note.completed {
+  background: #166534;
+  color: #dcfce7;
+}
+
+/* Feedback */
+
+.practice-feedback {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  min-height: 48px;
+  padding: 11px 13px;
+
+  border-radius: 10px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.practice-feedback.neutral {
+  background: #334155;
+  color: #e2e8f0;
+}
+
+.practice-feedback.correct {
+  background: #14532d;
+  color: #dcfce7;
+}
+
+.practice-feedback.incorrect {
+  background: #78350f;
+  color: #fef3c7;
+}
+
+.practice-feedback-icon {
+  font-size: 19px;
+  font-weight: 700;
+}
+
+/* Statistics */
+
+.practice-statistics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.practice-stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+
+  padding: 13px 6px;
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 10px;
+}
+
+.practice-stat-card span {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.practice-stat-card strong {
+  font-size: 23px;
+  color: white;
+}
+
+/* Accuracy */
+
+.practice-accuracy {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.practice-accuracy-heading {
+  display: flex;
+  justify-content: space-between;
+  color: #cbd5e1;
+  font-size: 12px;
+}
+
+.practice-accuracy-heading strong {
+  color: #38bdf8;
+}
+
+.practice-progress-track {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #334155;
+}
+
+.practice-progress-fill {
+  height: 100%;
+  border-radius: 10px;
+  background: #22c55e;
+  transition: width 0.25s ease;
+}
+
+/* Restart */
+
+.practice-restart-button {
+  width: 100%;
+  padding: 12px;
+
+  background: #334155;
+  color: #f8fafc;
+  border: 1px solid #475569;
+  border-radius: 10px;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.practice-restart-button:hover {
+  background: #475569;
+}
+
+/* Compact layout for laptop screens */
+
+@media (min-width: 1001px) and (max-height: 800px) {
+  .practice-panel {
+    gap: 11px;
+    padding: 14px;
+  }
+
+  .practice-target-card {
+    padding: 12px;
+  }
+
+  .practice-target-card h3 {
+    font-size: 38px;
+  }
+
+  .practice-stat-card {
+    padding: 9px 5px;
+  }
+
+  .practice-stat-card strong {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .practice-panel {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .practice-target-card h3 {
+    font-size: 40px;
+  }
+}
+
+/* =========================================
+   HANDNOTE - COMPOSITION MODE
+========================================= */
+
+.composition-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 18px;
+  width: 100%;
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 16px;
+  color: #f8fafc;
+}
+
+.composition-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.composition-header h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.composition-header p {
+  margin: 6px 0 0;
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.composition-badge {
+  padding: 6px 9px;
+  background: #1e3a8a;
+  color: #bfdbfe;
+  border-radius: 7px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.composition-recording {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 11px;
+}
+
+.composition-label {
+  font-size: 10px;
+  letter-spacing: 1px;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+.composition-recording p {
+  margin: 5px 0 0;
+  color: #cbd5e1;
+  font-size: 12px;
+}
+
+.composition-record-button {
+  flex-shrink: 0;
+  padding: 11px 13px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.composition-record-button.recording {
+  background: #dc2626;
+}
+
+.composition-timeline,
+.composition-tempo {
+  padding: 14px;
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 11px;
+}
+
+.composition-section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.composition-section-heading h3 {
+  margin: 0;
+  font-size: 14px;
+}
+
+.composition-section-heading span,
+.composition-section-heading strong {
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.composition-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 20px 10px;
+  color: #94a3b8;
+  text-align: center;
+}
+
+.composition-empty > span {
+  font-size: 28px;
+  color: #38bdf8;
+}
+
+.composition-empty p {
+  margin: 0;
+  font-size: 13px;
+  color: #e2e8f0;
+}
+
+.composition-empty small {
+  font-size: 11px;
+}
+
+.composition-notes {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 7px;
+  max-height: 145px;
+  overflow-y: auto;
+}
+
+.composition-note {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-width: 55px;
+  padding: 8px;
+  background: #334155;
+  border: 1px solid #475569;
+  border-radius: 8px;
+}
+
+.composition-note small {
+  color: #94a3b8;
+  font-size: 10px;
+}
+
+.composition-note strong {
+  color: #f8fafc;
+  font-size: 12px;
+}
+
+.composition-note.playing {
+  background: #166534;
+  border-color: #22c55e;
+}
+
+.composition-tempo input[type="range"] {
+  width: 100%;
+  accent-color: #38bdf8;
+  cursor: pointer;
+}
+
+.composition-tempo-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  color: #94a3b8;
+  font-size: 10px;
+}
+
+.composition-controls {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.composition-controls button {
+  padding: 11px 5px;
+  border: 1px solid #475569;
+  border-radius: 9px;
+  background: #334155;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.composition-controls button:first-child {
+  background: #16a34a;
+  border-color: #16a34a;
+}
+
+.composition-edit-controls {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.composition-edit-controls button {
+  padding: 11px 7px;
+  border: 1px solid #475569;
+  border-radius: 9px;
+  background: #334155;
+  color: #f8fafc;
+  font-size: 12px;
+}
+
+.composition-edit-controls button:last-child {
+  color: #fecaca;
+  border-color: #7f1d1d;
+}
+
+.composition-panel button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.composition-message {
+  min-height: 36px;
+  margin: 0;
+  padding: 10px 12px;
+  background: #334155;
+  border-radius: 9px;
+  color: #cbd5e1;
+  font-size: 12px;
+  text-align: center;
+}
+
+@media (min-width: 1001px) and (max-height: 800px) {
+  .composition-panel {
+    gap: 10px;
+    padding: 13px;
+  }
+
+  .composition-recording,
+  .composition-timeline,
+  .composition-tempo {
+    padding: 10px;
+  }
+
+  .composition-empty {
+    padding: 10px;
+  }
+
+  .composition-notes {
+    max-height: 95px;
+  }
+}
+
+@media (max-width: 600px) {
+  .composition-panel {
+    padding: 12px;
+  }
+
+  .composition-recording {
+    flex-wrap: wrap;
+  }
+
+  .composition-record-button {
+    width: 100%;
+  }
+}
+
+/* =========================================
+   HANDNOTE - SAVED COMPOSITIONS
+========================================= */
+
+.composition-save-section,
+.composition-library {
+  padding: 14px;
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 11px;
+}
+
+.composition-save-row {
+  display: flex;
+  gap: 8px;
+}
+
+.composition-save-row input {
+  flex: 1;
+  min-width: 0;
+  padding: 11px 12px;
+  border: 1px solid #475569;
+  border-radius: 8px;
+  background: #1e293b;
+  color: #f8fafc;
+  font-family: inherit;
+  font-size: 12px;
+}
+
+.composition-save-row input:focus {
+  outline: 2px solid #38bdf8;
+  outline-offset: 1px;
+}
+
+.composition-save-row button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.composition-save-hint {
+  margin: 8px 0 0;
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.composition-new-button {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #475569;
+  border-radius: 8px;
+  background: #334155;
+  color: #f8fafc;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.composition-library-empty {
+  margin: 0;
+  padding: 16px 0;
+  color: #94a3b8;
+  text-align: center;
+  font-size: 12px;
+}
+
+.composition-library-list {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.composition-library-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 9px;
+}
+
+.composition-library-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.composition-library-info strong {
+  overflow-wrap: anywhere;
+  font-size: 12px;
+  color: #f8fafc;
+}
+
+.composition-library-info span,
+.composition-library-info small {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.composition-library-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.composition-library-actions button {
+  padding: 8px 10px;
+  border: 1px solid #475569;
+  border-radius: 7px;
+  background: #334155;
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.composition-library-actions .composition-delete-button {
+  color: #fecaca;
+  border-color: #7f1d1d;
+}
+
+@media (max-width: 600px) {
+  .composition-library-item {
+    flex-wrap: wrap;
+  }
+
+  .composition-library-actions {
+    width: 100%;
+  }
+
+  .composition-library-actions button {
+    flex: 1;
+  }
+}
+
+
+/* =========================================
+   COMPOSITION MODE - FIXED INTERNAL SCROLL
+========================================= */
+
+@media (min-width: 1001px) {
+  .composition-panel {
+    height: calc(100dvh - 130px);
+    max-height: 750px;
+    min-height: 0;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    border-radius: 16px;
+    box-sizing: border-box;
+
+    /* Keep scrollbar inside rounded panel */
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: #475569 #1e293b;
+
+    overscroll-behavior: contain;
+  }
+
+  .composition-panel::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .composition-panel::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 10px;
+  }
+
+  .composition-panel::-webkit-scrollbar-thumb {
+    background: #475569;
+    border-radius: 10px;
+  }
+
+  .composition-panel::-webkit-scrollbar-button {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  .composition-panel > * {
+    flex-shrink: 0;
+  }
+}
+@media (min-width: 1001px) {
+  .composition-panel {
+    padding-right: 22px;
+  }
+}
+
+/* =========================================
+   HANDNOTE - VISUAL GESTURE GUIDE
+========================================= */
+
+.learning-gesture-section {
+  margin-top: 16px;
+}
+
+.learning-gesture-section h4 {
+  margin: 0 0 10px;
+  color: #f8fafc;
+  font-size: 14px;
+}
+
+.hand-gesture-guide {
+  padding: 14px;
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 12px;
+}
+
+.hand-gesture-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 210px;
+  overflow: hidden;
+}
+
+.hand-gesture-svg {
+  display: block;
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+}
+
+.hand-gesture-legend {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 10px;
+  color: #cbd5e1;
+  font-size: 11px;
+}
+
+.hand-gesture-legend > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.gesture-legend-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+
+.gesture-legend-dot.raised {
+  background: #38bdf8;
+}
+
+.gesture-legend-dot.folded {
+  background: #475569;
+}
+
+.hand-gesture-caption {
+  margin: 12px 0 0;
+  color: #94a3b8;
+  font-size: 12px;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .hand-gesture-visual {
+    height: 180px;
+  }
+
+  .hand-gesture-guide {
+    padding: 10px;
+  }
+}
+/* Make the brand clickable */
+.brand-home-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  text-align: left;
+  font: inherit;
+}
+
+.brand-home-link:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 700px) {
+  .home-header {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .home-header .mode-navigation {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .home-header .mode-navigation button {
+    font-size: 12px;
+    padding: 10px 8px;
+  }
+}
+

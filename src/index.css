@@ -1,0 +1,107 @@
+
+/* ========================================
+   HANDNOTE - GLOBAL STYLES
+======================================== */
+
+:root {
+  font-family: Inter, system-ui, "Segoe UI", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color: #f8fafc;
+  background-color: #0f172a;
+  color-scheme: dark;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Reset default browser spacing */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-width: 320px;
+  background-color: #0f172a;
+}
+
+/* Allow HandNote to use the full screen */
+
+#root {
+  min-height: 100dvh;
+  display: block;
+}
+
+/* Typography */
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: #f8fafc;
+  line-height: 1.25;
+}
+
+p {
+  line-height: 1.5;
+}
+
+/* Buttons */
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+button:focus-visible {
+  outline: 2px solid #38bdf8;
+  outline-offset: 3px;
+}
+
+/* Webcam and other media */
+
+video,
+img {
+  max-width: 100%;
+}
+
+/* Scrollbar appearance */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
