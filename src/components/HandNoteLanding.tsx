@@ -43,7 +43,7 @@ export default function HomePage({
       <div className="home-starting-kit">
         <strong>GEAR UP</strong>
         <span> 🔴 A webcam</span>
-        <span>💡 A well-lit space</span>
+        <span>💡 A Good Lightning</span>
         <span>💭 A little curiosity</span>
       </div>
 
