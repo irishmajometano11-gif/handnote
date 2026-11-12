@@ -11,7 +11,7 @@ const raisedFingers: Record<NoteId, number[]> = {
   mi: [1, 2, 3],
   fa: [1, 2, 3, 4],
   sol: [0, 4],
-  la: [2, 3],
+  la: [0, 1, 4],
   ti: [2, 3, 4],
   highDo: [4],
 };

@@ -9,7 +9,7 @@ const gestureMap: Record<string, NoteId> = {
   "01110": "mi",
   "01111": "fa",
   "10001": "sol",
-  "00110": "la",
+  "11001": "la",
   "00111": "ti",
   "00001": "highDo",
 };
