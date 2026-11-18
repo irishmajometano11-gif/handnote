@@ -26,11 +26,13 @@
   color: #365575;
 }
 
+/* HERO SECTION */
+
 .home-hero {
   max-width: 1200px;
   margin: 0 auto;
-  min-height: 660px;
-  padding: 60px 30px 100px;
+  min-height: auto;
+  padding: 60px 30px 50px;
   display: grid;
   grid-template-columns: 1.05fr 1fr;
   align-items: start;
@@ -185,6 +187,13 @@
   max-width: 230px;
 }
 
+.home-placeholder-art img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
 .home-placeholder-art svg {
   width: 100%;
   height: auto;
@@ -260,55 +269,7 @@
   color: #416d94;
 }
 
-@media (max-width: 900px) {
-  .home-hero {
-    grid-template-columns: 1fr;
-    min-height: auto;
-    gap: 40px;
-    padding-top: 50px;
-  }
-
-  .home-preview-card {
-    max-width: 600px;
-  }
-}
-
-@media (max-width: 520px) {
-  .home-starting-kit {
-    gap: 12px;
-    padding: 15px 20px;
-  }
-
-  .home-starting-kit strong {
-    width: 100%;
-    border: none;
-  }
-
-  .home-hero {
-    padding: 35px 20px 70px;
-  }
-
-  .home-hero-content h1 {
-    font-size: 43px;
-  }
-
-  .home-preview-body {
-    grid-template-columns: 1.2fr 1fr;
-  }
-
-  .home-preview-image {
-    min-height: 180px;
-  }
-
-  .home-preview-keyboard button {
-    height: 42px;
-    font-size: 11px;
-  }
-
-  .home-preview-card {
-    padding: 10px;
-  }
-}
+/* CAMERA */
 
 .camera-panel .camera-frame {
   position: relative;
@@ -335,12 +296,76 @@
 .camera-panel .camera-canvas {
   pointer-events: none;
 }
+
+/* HOW IT WORKS SECTION */
+
+.home-how {
+  background: #f4f7fc;
+  scroll-margin-top: 80px;
+}
+
+.home-how .home-about-inner {
+  padding-top: 45px;
+}
+
+.home-how h2 {
+  margin: 20px 0 16px;
+  max-width: 700px;
+  font-size: clamp(28px, 3.2vw, 42px);
+  line-height: 1.2;
+  letter-spacing: -1px;
+  color: #0b336b;
+  font-weight: 800;
+}
+
+.home-how-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 36px;
+}
+
+.home-how-step {
+  padding: 22px;
+  border-radius: 14px;
+  background: white;
+  border: 1px solid #dce5ef;
+}
+
+.home-how-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 14px;
+  border-radius: 50%;
+  background: #287db7;
+  color: white;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.home-how-step h3 {
+  margin: 0 0 8px;
+  font-size: 15px;
+  color: #0b336b;
+}
+
+.home-how-step p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.7;
+  color: #416d94;
+}
+
 /* ABOUT SECTION */
 
 .home-about {
   background: white;
   border-top: 1px solid #dce5ef;
   border-bottom: 1px solid #dce5ef;
+  scroll-margin-top: 80px;
 }
 
 .home-about-inner {
@@ -393,18 +418,77 @@
   color: #416d94;
 }
 
+/* RESPONSIVE DESIGN */
+
 @media (max-width: 900px) {
+  .home-hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    gap: 40px;
+    padding-top: 50px;
+  }
+
+  .home-preview-card {
+    max-width: 600px;
+  }
+
   .home-about-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home-how-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 520px) {
+  .home-starting-kit {
+    gap: 12px;
+    padding: 15px 20px;
+  }
+
+  .home-starting-kit strong {
+    width: 100%;
+    border: none;
+  }
+
+  .home-hero {
+    padding: 35px 20px 40px;
+  }
+
+  .home-hero-content h1 {
+    font-size: 43px;
+  }
+
+  .home-preview-body {
+    grid-template-columns: 1.2fr 1fr;
+  }
+
+  .home-preview-image {
+    min-height: 180px;
+  }
+
+  .home-preview-keyboard button {
+    height: 42px;
+    font-size: 11px;
+  }
+
+  .home-preview-card {
+    padding: 10px;
+  }
+
   .home-about-inner {
     padding: 50px 20px;
   }
 
-  .home-about-grid {
+  .home-about-grid,
+  .home-how-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* SMOOTH SCROLL */
+
+html {
+  scroll-behavior: smooth;
 }
