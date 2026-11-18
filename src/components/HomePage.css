@@ -309,3 +309,29 @@
     padding: 10px;
   }
 }
+
+.camera-panel .camera-frame {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #000;
+  border-radius: 12px;
+}
+
+.camera-panel .camera-video,
+.camera-panel .camera-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  transform: scaleX(-1);
+}
+
+.camera-panel .camera-canvas {
+  pointer-events: none;
+}

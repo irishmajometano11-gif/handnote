@@ -15,7 +15,7 @@ const gestureInstructions: Record<NoteId, string> = {
   mi: "Raise your index, middle, and ring fingers.",
   fa: "Raise your index, middle, ring, and pinky fingers.",
   sol: "Extend your thumb and pinky while keeping the other fingers folded (Shaka gesture).",
-  la: "Raise your middle and ring fingers.",
+  la: "Raise your thumb, index, and pinky fingers while keeping your middle and ring fingers folded.",
   ti: "Raise your middle, ring, and pinky fingers.",
   highDo: "Raise only your pinky finger.",
 };
