@@ -229,18 +229,53 @@ export default function HandTracker({
             : status}
         </span>
       </div>
-
-      <div className="camera-frame">
+          <div
+        style={{
+          position: "relative",
+          width: "100%",
+          aspectRatio: "4 / 3",
+          overflow: "hidden",
+          background: "#000",
+          borderRadius: "12px",
+        }}
+      >
         <video
           ref={videoRef}
           autoPlay
           muted
           playsInline
-          className="camera-video"
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            maxWidth: "none",
+            margin: 0,
+            padding: 0,
+            border: 0,
+            objectFit: "cover",
+            transform: "scaleX(-1)",
+          }}
         />
-        <canvas ref={canvasRef} className="camera-canvas" />
+        <canvas
+          ref={canvasRef}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            maxWidth: "none",
+            margin: 0,
+            padding: 0,
+            border: 0,
+            objectFit: "cover",
+            transform: "scaleX(-1)",
+            pointerEvents: "none",
+          }}
+        />
       </div>
-
       <div className="camera-information">
         <span>
           Hands Detected: <strong>{handCount}</strong>
