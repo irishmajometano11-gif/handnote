@@ -335,3 +335,76 @@
 .camera-panel .camera-canvas {
   pointer-events: none;
 }
+/* ABOUT SECTION */
+
+.home-about {
+  background: white;
+  border-top: 1px solid #dce5ef;
+  border-bottom: 1px solid #dce5ef;
+}
+
+.home-about-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 70px 30px;
+}
+
+.home-about h2 {
+  margin: 20px 0 16px;
+  max-width: 700px;
+  font-size: clamp(28px, 3.2vw, 42px);
+  line-height: 1.2;
+  letter-spacing: -1px;
+  color: #0b336b;
+  font-weight: 800;
+}
+
+.home-about-intro {
+  max-width: 720px;
+  font-size: 16px;
+  line-height: 1.8;
+  color: #345271;
+}
+
+.home-about-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 36px;
+}
+
+.home-about-card {
+  padding: 22px;
+  border-radius: 14px;
+  background: #f4f7fc;
+  border: 1px solid #dce5ef;
+}
+
+.home-about-card h3 {
+  margin: 0 0 8px;
+  font-size: 15px;
+  color: #0b336b;
+}
+
+.home-about-card p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.7;
+  color: #416d94;
+}
+
+@media (max-width: 900px) {
+  .home-about-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .home-about-inner {
+    padding: 50px 20px;
+  }
+
+  .home-about-grid {
+    grid-template-columns: 1fr;
+  }
+}
