@@ -1,8 +1,8 @@
-
 import { useEffect, useRef, useState } from "react";
 import {
   FilesetResolver,
   HandLandmarker,
+  DrawingUtils,
 } from "@mediapipe/tasks-vision";
 
 import { recognizeGesture } from "../lib/gestures";
@@ -17,6 +17,7 @@ export default function HandTracker({
   onGestureDetected,
 }: HandTrackerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const [status, setStatus] = useState("Camera not started");
   const [handCount, setHandCount] = useState(0);
@@ -53,7 +54,7 @@ export default function HandTracker({
           {
             baseOptions: {
               modelAssetPath:
-               "/mediapipe/hand_landmarker.task",
+                "/mediapipe/hand_landmarker.task",
               delegate: "CPU",
             },
             runningMode: "VIDEO",
@@ -94,6 +95,16 @@ export default function HandTracker({
 
         setStatus("Camera active");
 
+        // Canvas + drawing tools for the hand tracking lines
+        const canvas = canvasRef.current;
+        const ctx = canvas?.getContext("2d") ?? null;
+        const drawingUtils = ctx ? new DrawingUtils(ctx) : null;
+
+        if (canvas) {
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+        }
+
         function detect() {
           if (stopped || !video || !landmarker) return;
 
@@ -104,6 +115,28 @@ export default function HandTracker({
             );
 
             setHandCount(results.landmarks.length);
+
+            // Draw hand tracking lines and dots
+            if (canvas && ctx && drawingUtils) {
+              ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+              for (const landmarks of results.landmarks) {
+                // lines: teal-green
+                drawingUtils.drawConnectors(
+                  landmarks,
+                  HandLandmarker.HAND_CONNECTIONS,
+                  { color: "#2EE6A6", lineWidth: 5 }
+                );
+
+                // dots: coral fill with a dark outline
+                drawingUtils.drawLandmarks(landmarks, {
+                  color: "#0B1B4D",
+                  fillColor: "#FF6B5B",
+                  lineWidth: 2,
+                  radius: 6,
+                });
+              }
+            }
 
             const hand = results.landmarks[0];
 
@@ -205,6 +238,7 @@ export default function HandTracker({
           playsInline
           className="camera-video"
         />
+        <canvas ref={canvasRef} className="camera-canvas" />
       </div>
 
       <div className="camera-information">
