@@ -1,16 +1,23 @@
-
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import HandTracker from "./components/HandTracker";
 import LearnMode from "./components/LearnMode";
 import PracticeMode from "./components/PracticeMode";
 import CompositionMode from "./components/CompositionMode";
 import HomePage from "./components/HandNoteLanding";
+import HowItWorksPage from "./components/HowItWorksPage";
+import AboutPage from "./components/AboutPage";
 
 import { enableAudio } from "./lib/audio";
 import { NOTES, type NoteId } from "./lib/notes";
 
-type Mode = "home" | "learn" | "practice" | "composition";
+type Mode =
+  | "home"
+  | "how"
+  | "about"
+  | "learn"
+  | "practice"
+  | "composition";
 
 export default function App() {
   const [mode, setMode] = useState<Mode>("home");
@@ -28,6 +35,11 @@ export default function App() {
 
   const [gestureEvent, setGestureEvent] = useState(0);
 
+  // Always start at the top when switching screens
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, [mode]);
+
   // Start Learning button
   function handleStartLearning() {
     setLearningStarted(true);
@@ -36,8 +48,13 @@ export default function App() {
 
   // Handle navigation between pages
   function handleNavigate(nextMode: Mode) {
+    const isLearningMode =
+      nextMode === "learn" ||
+      nextMode === "practice" ||
+      nextMode === "composition";
+
     // Prevent access to learning modes before starting
-    if (nextMode !== "home" && !learningStarted) {
+    if (isLearningMode && !learningStarted) {
       return;
     }
 
@@ -62,18 +79,21 @@ export default function App() {
   }
 
   const isHome = mode === "home";
+  // Home, How it works and About share the landing-style header
+  const isLanding =
+    mode === "home" || mode === "how" || mode === "about";
   const isCorrect = detectedNote === targetNote;
 
   return (
     <div
       className={`handnote-app ${
-        isHome ? "home-active" : ""
+        isLanding ? "home-active" : ""
       }`}
     >
       {/* HEADER */}
       <header
         className={`app-header ${
-          isHome ? "home-header" : ""
+          isLanding ? "home-header" : ""
         }`}
       >
         {/* BRAND */}
@@ -88,7 +108,7 @@ export default function App() {
           <div>
             <h1>HandNote</h1>
 
-            {!isHome && (
+            {!isLanding && (
               <p>Gesture-Based Music Learning</p>
             )}
           </div>
@@ -104,15 +124,40 @@ export default function App() {
             type="button"
             className={isHome ? "active" : ""}
             onClick={() => handleNavigate("home")}
-            aria-current={
-              isHome ? "page" : undefined
-            }
+            aria-current={isHome ? "page" : undefined}
           >
             Home
           </button>
 
-          {/* LEARNING MODES - HIDDEN ON HOMEPAGE */}
-          {!isHome && (
+          {/* HOW IT WORKS + ABOUT - LANDING SCREENS ONLY */}
+          {isLanding && (
+            <>
+              <button
+                type="button"
+                className={mode === "how" ? "active" : ""}
+                onClick={() => handleNavigate("how")}
+                aria-current={
+                  mode === "how" ? "page" : undefined
+                }
+              >
+                How it works
+              </button>
+
+              <button
+                type="button"
+                className={mode === "about" ? "active" : ""}
+                onClick={() => handleNavigate("about")}
+                aria-current={
+                  mode === "about" ? "page" : undefined
+                }
+              >
+                About HandNote
+              </button>
+            </>
+          )}
+
+          {/* LEARNING MODES - HIDDEN ON LANDING SCREENS */}
+          {!isLanding && (
             <>
               {/* LEARN */}
               <button
@@ -164,7 +209,7 @@ export default function App() {
         </nav>
 
         {/* SOUND BUTTON */}
-        {!isHome && (
+        {!isLanding && (
           <button
             type="button"
             className={`audio-button ${
@@ -180,7 +225,7 @@ export default function App() {
       </header>
 
       {/* HOMEPAGE */}
-      {isHome && (
+      {mode === "home" && (
         <HomePage
           onNavigate={(nextMode: Mode) => {
             if (nextMode === "learn") {
@@ -192,8 +237,14 @@ export default function App() {
         />
       )}
 
+      {/* HOW IT WORKS SCREEN */}
+      {mode === "how" && <HowItWorksPage />}
+
+      {/* ABOUT SCREEN */}
+      {mode === "about" && <AboutPage />}
+
       {/* LEARNING DASHBOARD */}
-      {!isHome && learningStarted && (
+      {!isLanding && learningStarted && (
         <main className="dashboard-layout">
           {/* WEBCAM */}
           <section className="webcam-column">

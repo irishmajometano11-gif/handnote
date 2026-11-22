@@ -1472,4 +1472,9 @@ button:disabled {
     padding: 10px 8px;
   }
 }
-
+/* Fixed header */
+.handnote-app > .app-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}

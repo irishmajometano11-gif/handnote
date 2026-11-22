@@ -492,3 +492,14 @@
 html {
   scroll-behavior: smooth;
 }
+/* FULL-SCREEN INFO PAGES */
+
+.info-page {
+  min-height: calc(100vh - 75px);
+}
+
+.info-page .home-how,
+.info-page .home-about {
+  min-height: calc(100vh - 75px);
+  border: none;
+}

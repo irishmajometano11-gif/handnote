@@ -33,12 +33,6 @@ export default function HomePage({
     void playHomeNote(id);
   }
 
-  function scrollToSection(id: string) {
-    document
-      .getElementById(id)
-      ?.scrollIntoView({ behavior: "smooth" });
-  }
-
   return (
     <div className="handnote-home">
       {/* STARTING KIT */}
@@ -80,26 +74,6 @@ export default function HomePage({
             >
               See Music <span>→</span>
             </button>
-
-            <button
-              type="button"
-              className="home-secondary-button"
-              onClick={() => scrollToSection("how-it-works")}
-            >
-              See how it works
-            </button>
-
-            <button
-              type="button"
-              className="home-secondary-button"
-              onClick={() => scrollToSection("about-handnote")}
-            >
-              About HandNote
-            </button>
-          </div>
-
-          <div className="home-footnote">
-            ✧ Your first melody is one gesture away.
           </div>
         </div>
 
@@ -166,113 +140,6 @@ export default function HomePage({
           </p>
         </div>
       </main>
-
-      {/* HOW IT WORKS */}
-      <section className="home-how" id="how-it-works">
-        <div className="home-about-inner">
-          <div className="home-eyebrow">
-            <span className="home-eyebrow-line" />
-            HOW IT WORKS
-          </div>
-
-          <h2>Four simple steps to your first melody.</h2>
-
-          <div className="home-how-grid">
-            <div className="home-how-step">
-              <span className="home-how-number">1</span>
-              <h3>Allow your webcam</h3>
-              <p>
-                Open Learn Mode and allow webcam access so HandNote
-                can see your hand.
-              </p>
-            </div>
-
-            <div className="home-how-step">
-              <span className="home-how-number">2</span>
-              <h3>Follow the gesture guide</h3>
-              <p>
-                Learn which hand gesture plays each note by following
-                the guide on screen.
-              </p>
-            </div>
-
-            <div className="home-how-step">
-              <span className="home-how-number">3</span>
-              <h3>Practice your notes</h3>
-              <p>
-                Practice musical notes and short sequences at your
-                own pace.
-              </p>
-            </div>
-
-            <div className="home-how-step">
-              <span className="home-how-number">4</span>
-              <h3>Compose a melody</h3>
-              <p>
-                Create and play your own melodies in Compose Mode.
-              </p>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* ABOUT HANDNOTE */}
-      <section className="home-about" id="about-handnote">
-        <div className="home-about-inner">
-          <div className="home-eyebrow">
-            <span className="home-eyebrow-line" />
-            ABOUT HANDNOTE
-          </div>
-
-          <h2>Learn and play music using only your hands.</h2>
-
-          <p className="home-about-intro">
-            HandNote is a browser-based music learning and
-            composition system that uses your webcam to recognize
-            hand gestures. Each gesture represents a musical note,
-            so you can learn, practice and compose music without a
-            physical instrument. No special hardware or
-            installation is needed, just a device with a camera
-            and a web browser.
-          </p>
-
-          <div className="home-about-grid">
-            <div className="home-about-card">
-              <h3>Learn Mode</h3>
-              <p>
-                Follow the hand gesture guide and discover which
-                gesture produces each note.
-              </p>
-            </div>
-
-            <div className="home-about-card">
-              <h3>Practice Mode</h3>
-              <p>
-                Practice musical notes and short sequences to build
-                accuracy and confidence.
-              </p>
-            </div>
-
-            <div className="home-about-card">
-              <h3>Composition Mode</h3>
-              <p>
-                Create your own melodies with gestures, then play
-                them back.
-              </p>
-            </div>
-
-            <div className="home-about-card">
-              <h3>Gesture Recognition</h3>
-              <p>
-                Your webcam follows your hand movements in real time
-                and turns each gesture into a musical note, with no
-                extra equipment needed.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }
