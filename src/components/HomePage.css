@@ -1,4 +1,3 @@
-
 .handnote-home {
   min-height: calc(100vh - 75px);
   background: #f4f7fc;
@@ -100,34 +99,10 @@
   margin-left: 16px;
 }
 
-.home-secondary-button {
-  background: white;
-  color: #287db7;
-  border: 1px solid #8db4d2;
-}
-
-.home-secondary-button:hover {
-  background: #eaf3fb;
-}
-
 .home-footnote {
   margin-top: 22px;
   color: #4785b4;
   font-size: 12px;
-}
-
-.home-instructions {
-  margin-top: 20px;
-  padding: 18px;
-  border-radius: 10px;
-  background: white;
-  border: 1px solid #dce5ef;
-  font-size: 13px;
-}
-
-.home-instructions p {
-  margin: 8px 0 0;
-  line-height: 1.6;
 }
 
 /* INTERACTIVE PREVIEW */
@@ -194,19 +169,6 @@
   object-fit: contain;
 }
 
-.home-placeholder-art svg {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.home-preview-image small {
-  position: absolute;
-  bottom: 12px;
-  color: #8ba4bf;
-  font-size: 10px;
-}
-
 .home-preview-note {
   background: #0c346d;
   color: white;
@@ -269,46 +231,37 @@
   color: #416d94;
 }
 
-/* CAMERA */
+/* HOW IT WORKS + ABOUT PAGES (shared layout) */
 
-.camera-panel .camera-frame {
-  position: relative;
-  display: block;
+.info-page {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-page .home-how,
+.info-page .home-about {
+  flex: 1;
+  display: flex;
+  min-height: calc(100vh - 75px);
+  border: none;
+}
+
+.info-page .home-about-inner {
   width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  background: #000;
-  border-radius: 12px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 50px;
 }
 
-.camera-panel .camera-video,
-.camera-panel .camera-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  max-width: none;
-  object-fit: cover;
-  transform: scaleX(-1);
+.home-about-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 70px 30px;
 }
 
-.camera-panel .camera-canvas {
-  pointer-events: none;
-}
-
-/* HOW IT WORKS SECTION */
-
-.home-how {
-  background: #f4f7fc;
-  scroll-margin-top: 80px;
-}
-
-.home-how .home-about-inner {
-  padding-top: 45px;
-}
-
-.home-how h2 {
+.home-how h2,
+.home-about h2 {
   margin: 20px 0 16px;
   max-width: 700px;
   font-size: clamp(28px, 3.2vw, 42px);
@@ -318,11 +271,22 @@
   font-weight: 800;
 }
 
+/* HOW IT WORKS */
+
+.home-how {
+  background: #f4f7fc;
+}
+
+.home-how .home-about-inner {
+  padding-top: 45px;
+}
+
 .home-how-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 16px;
   margin-top: 36px;
+  align-items: stretch;
 }
 
 .home-how-step {
@@ -359,29 +323,12 @@
   color: #416d94;
 }
 
-/* ABOUT SECTION */
+/* ABOUT */
 
 .home-about {
   background: white;
   border-top: 1px solid #dce5ef;
   border-bottom: 1px solid #dce5ef;
-  scroll-margin-top: 80px;
-}
-
-.home-about-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 70px 30px;
-}
-
-.home-about h2 {
-  margin: 20px 0 16px;
-  max-width: 700px;
-  font-size: clamp(28px, 3.2vw, 42px);
-  line-height: 1.2;
-  letter-spacing: -1px;
-  color: #0b336b;
-  font-weight: 800;
 }
 
 .home-about-intro {
@@ -396,6 +343,7 @@
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 16px;
   margin-top: 36px;
+  align-items: stretch;
 }
 
 .home-about-card {
@@ -418,6 +366,50 @@
   color: #416d94;
 }
 
+/* ONE BIG IMAGE FILLING THE REST OF THE PAGE */
+
+.info-image-wrap {
+  position: relative;
+  flex: 1;
+  min-height: 320px;
+  margin-top: 36px;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.info-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.info-image-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 2px dashed #8db4d2;
+  border-radius: 18px;
+  background: #eaf3fb;
+  color: #4785b4;
+}
+
+.info-image-placeholder span {
+  font-size: 34px;
+}
+
+.info-image-placeholder p {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+}
+
 /* RESPONSIVE DESIGN */
 
 @media (max-width: 900px) {
@@ -432,10 +424,7 @@
     max-width: 600px;
   }
 
-  .home-about-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
+  .home-about-grid,
   .home-how-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -485,21 +474,8 @@
   .home-how-grid {
     grid-template-columns: 1fr;
   }
-}
 
-/* SMOOTH SCROLL */
-
-html {
-  scroll-behavior: smooth;
-}
-/* FULL-SCREEN INFO PAGES */
-
-.info-page {
-  min-height: calc(100vh - 75px);
-}
-
-.info-page .home-how,
-.info-page .home-about {
-  min-height: calc(100vh - 75px);
-  border: none;
+  .info-image-wrap {
+    min-height: 220px;
+  }
 }

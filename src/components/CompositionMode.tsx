@@ -409,15 +409,15 @@ export default function CompositionMode({
 
   return (
     <section className="composition-panel">
-      <div className="composition-header">
+            <div className="composition-header">
         <div>
           <h2>Composition Mode</h2>
           <p>Create your own melody using hand gestures.</p>
         </div>
 
-        <span className="composition-badge">
-          {recording ? "● Recording" : "Music Studio"}
-        </span>
+        {recording && (
+          <span className="composition-badge">● Recording</span>
+        )}
       </div>
 
       {/* Recording */}

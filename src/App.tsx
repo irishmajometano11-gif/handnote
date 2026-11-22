@@ -6,7 +6,7 @@ import PracticeMode from "./components/PracticeMode";
 import CompositionMode from "./components/CompositionMode";
 import HomePage from "./components/HandNoteLanding";
 import HowItWorksPage from "./components/HowItWorksPage";
-import AboutPage from "./components/AboutPage";
+import About from "./components/AboutPage";
 
 import { enableAudio } from "./lib/audio";
 import { NOTES, type NoteId } from "./lib/notes";
@@ -25,8 +25,6 @@ export default function App() {
   // Track whether the user has started learning
   const [learningStarted, setLearningStarted] = useState(false);
 
-  const [soundEnabled, setSoundEnabled] = useState(false);
-
   const [detectedNote, setDetectedNote] =
     useState<NoteId | null>(null);
 
@@ -35,6 +33,27 @@ export default function App() {
 
   const [gestureEvent, setGestureEvent] = useState(0);
 
+  // Turn sound on automatically at the user's first interaction
+  useEffect(() => {
+    function unlockAudio() {
+      enableAudio().catch((error) => {
+        console.error("Failed to enable sound:", error);
+      });
+    }
+
+    window.addEventListener("pointerdown", unlockAudio, {
+      once: true,
+    });
+    window.addEventListener("keydown", unlockAudio, {
+      once: true,
+    });
+
+    return () => {
+      window.removeEventListener("pointerdown", unlockAudio);
+      window.removeEventListener("keydown", unlockAudio);
+    };
+  }, []);
+
   // Always start at the top when switching screens
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -42,6 +61,11 @@ export default function App() {
 
   // Start Learning button
   function handleStartLearning() {
+    // Make sure sound is on before the learning screen opens
+    enableAudio().catch((error) => {
+      console.error("Failed to enable sound:", error);
+    });
+
     setLearningStarted(true);
     setMode("learn");
   }
@@ -59,15 +83,6 @@ export default function App() {
     }
 
     setMode(nextMode);
-  }
-
-  async function handleEnableSound() {
-    try {
-      await enableAudio();
-      setSoundEnabled(true);
-    } catch (error) {
-      console.error("Failed to enable sound:", error);
-    }
   }
 
   function handleGestureDetected(note: NoteId | null) {
@@ -151,7 +166,7 @@ export default function App() {
                   mode === "about" ? "page" : undefined
                 }
               >
-                About HandNote
+                About
               </button>
             </>
           )}
@@ -207,21 +222,6 @@ export default function App() {
             </>
           )}
         </nav>
-
-        {/* SOUND BUTTON */}
-        {!isLanding && (
-          <button
-            type="button"
-            className={`audio-button ${
-              soundEnabled ? "enabled" : ""
-            }`}
-            onClick={handleEnableSound}
-          >
-            {soundEnabled
-              ? "✓ Sound Enabled"
-              : "♫ Enable Sound"}
-          </button>
-        )}
       </header>
 
       {/* HOMEPAGE */}
@@ -241,7 +241,7 @@ export default function App() {
       {mode === "how" && <HowItWorksPage />}
 
       {/* ABOUT SCREEN */}
-      {mode === "about" && <AboutPage />}
+      {mode === "about" && <About />}
 
       {/* LEARNING DASHBOARD */}
       {!isLanding && learningStarted && (
