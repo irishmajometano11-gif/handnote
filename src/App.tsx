@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import HandTracker from "./components/HandTracker";
 import LearnMode from "./components/LearnMode";
@@ -32,6 +32,25 @@ export default function App() {
     useState<NoteId>("do");
 
   const [gestureEvent, setGestureEvent] = useState(0);
+
+  // Fixed header: measure its height so the page content
+  // always starts right below it
+  const headerRef = useRef<HTMLDivElement>(null);
+  const [headerHeight, setHeaderHeight] = useState(80);
+
+  useEffect(() => {
+    const element = headerRef.current;
+    if (!element) return;
+
+    const update = () => setHeaderHeight(element.offsetHeight);
+
+    update();
+
+    const observer = new ResizeObserver(update);
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, []);
 
   // Turn sound on automatically at the user's first interaction
   useEffect(() => {
@@ -105,124 +124,134 @@ export default function App() {
         isLanding ? "home-active" : ""
       }`}
     >
-      {/* HEADER */}
-      <header
-        className={`app-header ${
-          isLanding ? "home-header" : ""
-        }`}
-      >
-        {/* BRAND */}
-        <button
-          type="button"
-          className="app-brand brand-home-link"
-          onClick={() => handleNavigate("home")}
-          aria-label="Go to HandNote homepage"
+      {/* FIXED HEADER (stays on screen while scrolling) */}
+      <div ref={headerRef} className="app-header-fixed">
+        <header
+          className={`app-header ${
+            isLanding ? "home-header" : ""
+          }`}
         >
-          <span className="brand-icon">♫</span>
-
-          <div>
-            <h1>HandNote</h1>
-
-            {!isLanding && (
-              <p>Gesture-Based Music Learning</p>
-            )}
-          </div>
-        </button>
-
-        {/* NAVIGATION */}
-        <nav
-          className="mode-navigation"
-          aria-label="HandNote navigation"
-        >
-          {/* HOME - ALWAYS VISIBLE */}
+          {/* BRAND */}
           <button
             type="button"
-            className={isHome ? "active" : ""}
+            className="app-brand brand-home-link"
             onClick={() => handleNavigate("home")}
-            aria-current={isHome ? "page" : undefined}
+            aria-label="Go to HandNote homepage"
           >
-            Home
+            <span className="brand-icon">♫</span>
+
+            <div>
+              <h1>HandNote</h1>
+
+              {!isLanding && (
+                <p>Gesture-Based Music Learning</p>
+              )}
+            </div>
           </button>
 
-          {/* HOW IT WORKS + ABOUT - LANDING SCREENS ONLY */}
-          {isLanding && (
-            <>
-              <button
-                type="button"
-                className={mode === "how" ? "active" : ""}
-                onClick={() => handleNavigate("how")}
-                aria-current={
-                  mode === "how" ? "page" : undefined
-                }
-              >
-                How it works
-              </button>
+          {/* NAVIGATION */}
+          <nav
+            className="mode-navigation"
+            aria-label="HandNote navigation"
+          >
+            {/* HOME - ALWAYS VISIBLE */}
+            <button
+              type="button"
+              className={isHome ? "active" : ""}
+              onClick={() => handleNavigate("home")}
+              aria-current={isHome ? "page" : undefined}
+            >
+              Home
+            </button>
 
-              <button
-                type="button"
-                className={mode === "about" ? "active" : ""}
-                onClick={() => handleNavigate("about")}
-                aria-current={
-                  mode === "about" ? "page" : undefined
-                }
-              >
-                About
-              </button>
-            </>
-          )}
+            {/* HOW IT WORKS + ABOUT - LANDING SCREENS ONLY */}
+            {isLanding && (
+              <>
+                <button
+                  type="button"
+                  className={mode === "how" ? "active" : ""}
+                  onClick={() => handleNavigate("how")}
+                  aria-current={
+                    mode === "how" ? "page" : undefined
+                  }
+                >
+                  How it works
+                </button>
 
-          {/* LEARNING MODES - HIDDEN ON LANDING SCREENS */}
-          {!isLanding && (
-            <>
-              {/* LEARN */}
-              <button
-                type="button"
-                className={
-                  mode === "learn" ? "active" : ""
-                }
-                onClick={() => handleNavigate("learn")}
-                aria-current={
-                  mode === "learn" ? "page" : undefined
-                }
-              >
-                Learn
-              </button>
+                <button
+                  type="button"
+                  className={
+                    mode === "about" ? "active" : ""
+                  }
+                  onClick={() => handleNavigate("about")}
+                  aria-current={
+                    mode === "about" ? "page" : undefined
+                  }
+                >
+                  About
+                </button>
+              </>
+            )}
 
-              {/* PRACTICE */}
-              <button
-                type="button"
-                className={
-                  mode === "practice" ? "active" : ""
-                }
-                onClick={() => handleNavigate("practice")}
-                aria-current={
-                  mode === "practice" ? "page" : undefined
-                }
-              >
-                Practice
-              </button>
+            {/* LEARNING MODES - HIDDEN ON LANDING SCREENS */}
+            {!isLanding && (
+              <>
+                {/* LEARN */}
+                <button
+                  type="button"
+                  className={
+                    mode === "learn" ? "active" : ""
+                  }
+                  onClick={() => handleNavigate("learn")}
+                  aria-current={
+                    mode === "learn" ? "page" : undefined
+                  }
+                >
+                  Learn
+                </button>
 
-              {/* COMPOSE */}
-              <button
-                type="button"
-                className={
-                  mode === "composition" ? "active" : ""
-                }
-                onClick={() =>
-                  handleNavigate("composition")
-                }
-                aria-current={
-                  mode === "composition"
-                    ? "page"
-                    : undefined
-                }
-              >
-                Compose
-              </button>
-            </>
-          )}
-        </nav>
-      </header>
+                {/* PRACTICE */}
+                <button
+                  type="button"
+                  className={
+                    mode === "practice" ? "active" : ""
+                  }
+                  onClick={() => handleNavigate("practice")}
+                  aria-current={
+                    mode === "practice" ? "page" : undefined
+                  }
+                >
+                  Practice
+                </button>
+
+                {/* COMPOSE */}
+                <button
+                  type="button"
+                  className={
+                    mode === "composition" ? "active" : ""
+                  }
+                  onClick={() =>
+                    handleNavigate("composition")
+                  }
+                  aria-current={
+                    mode === "composition"
+                      ? "page"
+                      : undefined
+                  }
+                >
+                  Compose
+                </button>
+              </>
+            )}
+          </nav>
+        </header>
+      </div>
+
+      {/* SPACER: keeps the page content below the fixed header */}
+      <div
+        style={{ height: headerHeight, flexShrink: 0 }}
+        aria-hidden="true"
+      />
 
       {/* HOMEPAGE */}
       {mode === "home" && (
