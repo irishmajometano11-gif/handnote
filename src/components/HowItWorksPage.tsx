@@ -45,8 +45,12 @@ const SPACE_BEFORE_IMAGES = 40;
 
 const pageStyle: CSSProperties = {
   minHeight: "calc(100vh - 75px)",
-  background: "#f4f7fc",
   color: "#103567",
+  backgroundColor: "#f5f9ff",
+  backgroundImage: `url("${getImage(6)}")`,
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
 };
 
 const innerStyle: CSSProperties = {

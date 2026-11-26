@@ -1,9 +1,18 @@
 import "./HomePage.css";
 import image5 from "../assets/image5.png";
+import image6 from "../assets/image6.png";
 
 
 // 👉 PASTE YOUR IMAGE LINK HERE (leave "" to show the placeholder)
 const IMAGE_LINK = image5; // under the 4 boxes
+const pageStyle = {
+  minHeight: "calc(100vh - 75px)",
+  backgroundColor: "#f5f9ff",
+  backgroundImage: `url("${image6}")`,
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
+};
 
 const features = [
   {
@@ -26,8 +35,8 @@ const features = [
 
 export default function AboutPage() {
   return (
-    <div className="handnote-home info-page">
-      <section className="home-about">
+    <div className="handnote-home info-page" style={pageStyle}>
+  <section className="home-about" style={{ background: "transparent" }}>
         <div className="home-about-inner">
           <div className="home-eyebrow">
             <span className="home-eyebrow-line" />

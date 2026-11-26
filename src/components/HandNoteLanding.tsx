@@ -34,7 +34,7 @@ export default function HomePage({
   }
 
   return (
-    <div className="handnote-home">
+    <div className="handnote-home home-bg">
       {/* STARTING KIT */}
       <div className="home-starting-kit">
         <strong>GEAR UP</strong>
