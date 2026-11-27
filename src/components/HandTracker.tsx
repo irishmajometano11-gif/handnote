@@ -20,6 +20,7 @@ export default function HandTracker({
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const [status, setStatus] = useState("Camera not started");
+  const [errorMessage, setErrorMessage] = useState("");
   const [handCount, setHandCount] = useState(0);
   const [detectedNote, setDetectedNote] = useState("None");
 
@@ -41,8 +42,8 @@ export default function HandTracker({
 
     async function startCamera() {
       try {
+        setErrorMessage("");
         setStatus("Loading hand tracking model...");
-
         const vision = await FilesetResolver.forVisionTasks(
           "/mediapipe/wasm"
         );
@@ -185,12 +186,20 @@ export default function HandTracker({
             error
           );
 
-          const message =
-            error instanceof Error
-              ? error.message
-              : String(error);
+                    setStatus("Camera unavailable");
 
-          setStatus(`Error: ${message}`);
+          if (
+            error instanceof DOMException &&
+            error.name === "NotAllowedError"
+          ) {
+            setErrorMessage(
+              "Camera access is required for gesture recognition. Allow camera access in your browser's site settings, then refresh the page."
+            );
+          } else {
+            setErrorMessage(
+              "Hand tracking could not be started. Check your webcam, then refresh the page."
+            );
+          }
         }
       }
     }
@@ -229,7 +238,13 @@ export default function HandTracker({
             : status}
         </span>
       </div>
-          <div
+                {errorMessage && (
+        <p role="alert" style={{ color: "#f87171", marginBottom: 12 }}>
+          {errorMessage}
+        </p>
+      )}
+
+      <div
         style={{
           position: "relative",
           width: "100%",
